@@ -17,7 +17,7 @@
 
 ## 🗓️ 3-Day Development Plan
 
-### ✅ Day 1 – Setup & UI Base
+###  Day 1 – Setup & UI Base
 
 - Initialized project using Vite + React
 - Installed Tailwind CSS and configured PostCSS
@@ -26,7 +26,7 @@
   - `Home` – Welcome screen
 - Verified Tailwind classes apply properly
 
-### ✅ Day 2 – Core Features: Ride Posting
+###  Day 2 – Core Features: Ride Posting
 
 - Created components:
   - `RideForm` – Submit ride offers
@@ -35,7 +35,7 @@
 - Used `useState` for ride storage
 - Implemented basic submission and display logic
 
-### ✅ Day 3 – Routing & UI Cleanup
+###  Day 3 – Routing & UI Cleanup
 
 - Installed and configured `react-router-dom`
 - Setup routes:
