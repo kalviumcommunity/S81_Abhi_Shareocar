@@ -1,4 +1,4 @@
-# 🚗 ShareOCar – A Ride Sharing Platform
+#  ShareOCar – A Ride Sharing Platform
 
 **ShareOCar** is a ride-sharing web app where users can offer or find rides, access a safety SOS button, and manage basic authentication. Inspired by platforms like BlaBlaCar, this is a simplified version built with React and Vite.
 
@@ -22,7 +22,7 @@
 - Initialized project using Vite + React
 - Installed Tailwind CSS and configured PostCSS
 - Created initial pages:
-  - `AuthForm` – Login UI
+  - `signup` – Login UI
   - `Home` – Welcome screen
 - Verified Tailwind classes apply properly
 
@@ -39,7 +39,7 @@
 
 - Installed and configured `react-router-dom`
 - Setup routes:
-  - `/auth` → `AuthForm`
+  - `/signup` → `signup`
   - `/home` → `Home`
   - `/post-ride` → `RideForm`, `RideList`, `SOSButton`
 - Applied Tailwind CSS styling for a cleaner UI
@@ -50,7 +50,7 @@
 
 | Path        | Component      | Description                    |
 |-------------|----------------|--------------------------------|
-| `/auth`     | `AuthForm`     | Sign in page                   |
+| `/sign`     | `signup`     | Sign in page                   |
 | `/home`     | `Home`         | Landing page                   |
 | `/post-ride`| `RideForm` + `RideList` + `SOSButton` | Ride offer, list, SOS |
 

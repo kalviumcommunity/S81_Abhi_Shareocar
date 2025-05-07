@@ -1,47 +1,34 @@
-// src/App.jsx
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import Home from './components/Home';
+import Login from './components/Login';
+import Signup from './components/Signup';
+import ForgotPassword from './components/ForgotPassword';
+import OtpVerification from './components/OtpVerification';
+import OfferRide from './components/OfferRide';
+import FindRide from './components/FindRide';
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import OTPVerify from './components/ForgotPassword';
 
-import AuthForm from './pages/AuthForm';
-import PostRide from './pages/PostRide'; // Import PostRide
-import Home from './pages/Home'; // Import Home
-import './App.css';
-import './index.css';
-import ParcelForm from './components/ParcelForm';
+
 
 function App() {
-  const [rides, setRides] = useState([]);
-
-  const handleRideSubmit = (newRide) => {
-    setRides([...rides, newRide]);
-  };
-
-  const handleSOS = () => {
-    alert('SOS alert sent! Help is on the way!');
-  };
-
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Auth Page */}
-        <Route path="/auth" element={<AuthForm />} />
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/login' element={<Login/>} />
+          <Route path='/signup' element={<Signup/>} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-otp" element={<OtpVerification />} />
+          <Route path="/find-rides" element={<FindRide />} />
+          <Route path="/offer-ride" element={<OfferRide />} />
+          
 
-        {/* Post a Ride Page */}
-        <Route
-          path="/post-ride"
-          element={<PostRide onRideSubmit={handleRideSubmit} rides={rides} onSOSPress={handleSOS} />}
-        />
-
-        <Route path="/parcel" element={<Parcel/>} /> 
-
-
-        {/* Home Page */}
-        <Route path="/home" element={<Home />} />
-        
-        {/* Default Route (Redirect to Home page) */}
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+        </BrowserRouter>
+      
+    </div>
   );
 }
 
