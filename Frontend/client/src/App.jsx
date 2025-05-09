@@ -32,7 +32,7 @@ function App() {
           element={<PostRide onRideSubmit={handleRideSubmit} rides={rides} onSOSPress={handleSOS} />}
         />
 
-        <Route path="/parcel" element={<Parcel/>} /> 
+        <Route path="/parcel" element={<ParcelForm/>} /> 
 
 
         {/* Home Page */}
