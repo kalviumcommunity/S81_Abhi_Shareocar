@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // Import dependencies
 const express = require('express');
-const connection = require('./db/connection'); // adjust path if needed
+const connetion = require('./db/connection'); // adjust path if needed
 const userRoutes = require('../controllers/userRoutes'); // adjust path if needed
 
 // Create Express app
