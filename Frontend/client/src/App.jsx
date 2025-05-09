@@ -1,48 +1,37 @@
 // src/App.jsx
-import { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import RideList from "./components/RideList";
+import OfferRide from "./components/OfferRide";
+import ForgotPassword from "./components/ForgotPassword";
+import Emergency from "./components/emergency";
+import ContactSupport from "./components/ContactSupport";
+import Payment from "./components/Payment";
+import Parcelotion from "./components/Parcelotion";
+import PaymentSuccess from "./components/PaymentSuccess";
+import PaymentFailed from "./components/PaymentFailed";
 
-import AuthForm from './pages/AuthForm';
-import PostRide from './pages/PostRide'; // Import PostRide
-import Home from './pages/Home'; // Import Home
-import './App.css';
-import './index.css';
-import ParcelForm from './components/ParcelForm';
-
-function App() {
-  const [rides, setRides] = useState([]);
-
-  const handleRideSubmit = (newRide) => {
-    setRides([...rides, newRide]);
-  };
-
-  const handleSOS = () => {
-    alert('SOS alert sent! Help is on the way!');
-  };
-
+const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        {/* Auth Page */}
-        <Route path="/auth" element={<AuthForm />} />
-
-        {/* Post a Ride Page */}
-        <Route
-          path="/post-ride"
-          element={<PostRide onRideSubmit={handleRideSubmit} rides={rides} onSOSPress={handleSOS} />}
-        />
-
-        <Route path="/parcel" element={<Parcel/>} /> 
-
-
-        {/* Home Page */}
-        <Route path="/home" element={<Home />} />
-        
-        {/* Default Route (Redirect to Home page) */}
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/ride-list" element={<RideList />} />
+        <Route path="/offer-ride" element={<OfferRide />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/emergency" element={<Emergency />} />
+        <Route path="/contact-support" element={<ContactSupport />} />
+        <Route path="/payment" element={<Payment />} />
+        <Route path="/parcelotion" element={<Parcelotion />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-fail" element={<PaymentFailed />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
-}
+};
 
 export default App;
