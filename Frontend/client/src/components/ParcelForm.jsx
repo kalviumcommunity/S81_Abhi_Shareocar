@@ -8,7 +8,6 @@
     const [dropoffLocation, setDropoffLocation] = useState('');
     const [weight, setWeight] = useState('');
 
-    
     const handleSubmit = (e) => {
       e.preventDefault();
       const parcelData = {
