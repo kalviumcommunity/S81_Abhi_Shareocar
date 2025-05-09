@@ -26,6 +26,8 @@
       setWeight('');
     };
 
+
+    
     return (
       <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: 'auto' }}>
         <h2>Send a Parcel</h2>
