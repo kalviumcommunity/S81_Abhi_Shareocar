@@ -10,7 +10,6 @@
     const { sendMail } = require("../utils/mail")
     const otpStore = new Map();
     const catchAsyncError = require("../middleware/catchAsyncError")
-    require("dotenv").config();
 
 
 

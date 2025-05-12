@@ -1,4 +1,4 @@
-// const Errorhandler=require("../utils/Errorhandler")
+const Errorhandler=require("../utils/Errorhandler")
 
 module.exports=(err,req,res,next)=>{
     //   console.log(err)
