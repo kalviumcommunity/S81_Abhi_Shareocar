@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const addressSchema = require("./addressModel")
 
 const Userschema = new mongoose.Schema({
     name: {
@@ -11,16 +12,20 @@ const Userschema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: false
     },
     role: {
         type: String,
         default: "user",
         enum: ["user", "admin"]
+    },
+    address:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Address"
     }
 
 
-})
+});
 
 
 const UserModel = mongoose.model("user", Userschema)

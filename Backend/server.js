@@ -4,16 +4,16 @@ require('dotenv').config();
 // Import dependencies
 const express = require('express');
 const connectDB = require('./db/connection'); // ✅ Renamed to avoid duplicate declaration
-const userRouter = require('./controllers/userRoutes'); // adjust path if needed
-
+// const userRouter = require('./controllers/userRoutes'); // adjust path if needed
+const {app}=require('./app')
 // Create Express app
-const app = express();
+// const app = express();
 
 // Middleware to parse incoming JSON
-app.use(express.json());
+// app.use(express.json());
 
 // Mount user-related routes
-app.use('/users', userRouter);
+// app.use('/users', userRouter);
 
 // Test route
 app.get('/test', (req, res) => {

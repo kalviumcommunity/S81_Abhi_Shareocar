@@ -1,10 +1,11 @@
 const express=require("express")
 const ErrorMiddleware=require("./middleware/error")
 const userRouter=require('./controllers/userRoutes')
+require('./config/passport')
 const app=express()
 app.use(express.json())
-import cors from 'cors'
-
+const cors =require('cors')
+app.use(cors())
 
 
 app.use("/user",userRouter)

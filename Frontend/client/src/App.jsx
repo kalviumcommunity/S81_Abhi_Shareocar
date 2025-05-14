@@ -12,6 +12,7 @@ import Payment from "./components/Payment";
 import Parcelotion from "./components/Parcelotion";
 import PaymentSuccess from "./components/PaymentSuccess";
 import PaymentFailed from "./components/PaymentFailed";
+import GoogleSuccess from "./components/GoogleSuccess";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/parcelotion" element={<Parcelotion />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/google-success" element={<GoogleSuccess />}></Route>
         <Route path="/payment-fail" element={<PaymentFailed />} />
       </Routes>
     </Router>

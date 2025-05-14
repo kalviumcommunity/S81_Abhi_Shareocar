@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import GoogleButton from "./GoogleButton";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -64,6 +65,7 @@ const Login = () => {
           <Link to="/signup" className="text-orange-600 hover:underline font-medium">
             Sign Up
           </Link>
+          <GoogleButton/>
         </p>
 
         {/* Forgot Password Button */}
