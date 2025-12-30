@@ -1,57 +1,76 @@
-# 🚗 ShareOCar – A Ride Sharing Platform
+# ShareOCar
 
-**ShareOCar** is a ride-sharing web app where users can offer or find rides, access a safety SOS button, and manage basic authentication. Inspired by platforms like BlaBlaCar, this is a simplified version built with React and Vite.
+Production-ready ride-sharing web app inspired by BlaBlaCar. Monorepo with frontend (Vite + React + Tailwind + Framer Motion + React Router) and backend (Node.js + Express + MongoDB Atlas).
 
----
+## Features
+- Email + Phone signup with OTP verification
+- JWT auth, password hashing, protected routes, role-based access
+- Auto admin role if email matches `ADMIN_EMAIL`
+- Post/search rides; booking with history
+- Parcel transport with acceptance by admin (extensible to drivers)
+- Persistent SOS button stores alerts visible in admin dashboard
+- Clean UI, responsive, loading + basic error handling
 
-## ⚙️ Tech Stack
+## Structure
+- `frontend/` — Vite React app
+- `backend/` — Express API server
 
-- **Frontend**: React + Vite
-- **Styling**: Tailwind CSS
-- **Routing**: React Router DOM
-- **(Optional)** Backend: Node.js + Express
-- **(Optional)** Database: MongoDB Atlas
-- **(Planned)**: Razorpay Integration, JWT Authentication
+## Environment
+Create `.env` files.
 
----
+Backend `.env` (see `backend/.env.example`):
+```
+PORT=5000
+CLIENT_URL=http://localhost:5173
+MONGODB_URI=your_mongodb_atlas_uri
+JWT_SECRET=supersecret
+ADMIN_EMAIL=admin@example.com
+# SMTP (optional)
+EMAIL_FROM=ShareOCar <no-reply@shareocar.com>
+SMTP_HOST=...
+SMTP_PORT=587
+SMTP_USER=...
+SMTP_PASS=...
+# Twilio (optional)
+TWILIO_ACCOUNT_SID=...
+TWILIO_AUTH_TOKEN=...
+TWILIO_FROM_NUMBER=+1234567890
+```
 
-## 🗓️ 3-Day Development Plan
+Frontend `.env`:
+```
+VITE_API_URL=http://localhost:5000/api
+```
 
-###  Day 1 – Setup & UI Base
+## Run locally
+In two terminals:
 
-- Initialized project using Vite + React
-- Installed Tailwind CSS and configured PostCSS
-- Created initial pages:
-  - `AuthForm` – Login UI
-  - `Home` – Welcome screen
-- Verified Tailwind classes apply properly
+Backend:
+```powershell
+Push-Location "c:\Users\abhiv\Desktop\S81_Abhi_Shareocar\backend"
+npm run dev
+```
 
-###  Day 2 – Core Features: Ride Posting
+Frontend:
+```powershell
+Push-Location "c:\Users\abhiv\Desktop\S81_Abhi_Shareocar\frontend"
+npm run dev
+```
 
-- Created components:
-  - `RideForm` – Submit ride offers
-  - `RideList` – Show posted rides
-  - `SOSButton` – Safety alert
-- Used `useState` for ride storage
-- Implemented basic submission and display logic
+Open http://localhost:5173
 
-###  Day 3 – Routing & UI Cleanup
+## API Overview
+- `POST /api/auth/signup/send-otp`
+- `POST /api/auth/signup/verify-otp`
+- `POST /api/auth/signup/complete`
+- `POST /api/auth/login`
+- `GET /api/auth/me`
+- `GET /api/rides` `POST /api/rides` `GET /api/rides/:id` `PATCH /api/rides/:id/status`
+- `POST /api/bookings/:rideId` `GET /api/bookings/me`
+- `POST /api/parcels` `GET /api/parcels/me` `PATCH /api/parcels/:id/accept` (admin)
+- `POST /api/sos` `GET /api/sos` (admin) `PATCH /api/sos/:id/resolve` (admin)
 
-- Installed and configured `react-router-dom`
-- Setup routes:
-  - `/auth` → `AuthForm`
-  - `/home` → `Home`
-  - `/post-ride` → `RideForm`, `RideList`, `SOSButton`
-- Applied Tailwind CSS styling for a cleaner UI
-
----
-
-## 🧭 Routes Summary
-
-| Path        | Component      | Description                    |
-|-------------|----------------|--------------------------------|
-| `/auth`     | `AuthForm`     | Sign in page                   |
-| `/home`     | `Home`         | Landing page                   |
-| `/post-ride`| `RideForm` + `RideList` + `SOSButton` | Ride offer, list, SOS |
-
-
+## Notes
+- OTP delivery falls back to console logs in dev when SMTP/Twilio aren't configured.
+- Admin role is assigned automatically when logging in if email matches `ADMIN_EMAIL`.
+- Extend parcel acceptance to driver/ride owners by adding suitable role checks.
