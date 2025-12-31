@@ -41,7 +41,7 @@ export default function SOSButton() {
             <div className="grid grid-cols-1 gap-3">
               <a href="tel:100" className="w-full text-center bg-red-500 text-white py-2 rounded-lg">Call Police</a>
               <a href="tel:102" className="w-full text-center bg-orange-500 text-white py-2 rounded-lg">Call Ambulance</a>
-              <button disabled={sending} onClick={() => send('contact', prompt('Emergency contact number?'))} className="w-full bg-blue-600 text-white py-2 rounded-lg disabled:opacity-50">Share Live Location</button>
+              <button disabled={sending} onClick={() => send('contact', prompt('Emergency contact number?'))} className="w-full bg-brand-dark text-white py-2 rounded-lg disabled:opacity-50">Share Live Location</button>
             </div>
             <button onClick={() => setOpen(false)} className="w-full border py-2 rounded-lg">Close</button>
           </div>
