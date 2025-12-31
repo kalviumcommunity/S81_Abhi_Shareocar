@@ -1,5 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Tailwind v4: import plugin-generated styles */
+@import "tailwindcss";
+
+/* Custom brand palette for v4 via @theme */
+@theme {
+	--color-brand: #2563eb;
+	--color-brand-light: #93c5fd;
+	--color-brand-dark: #1e40af;
+}
 
 html, body, #root { height: 100%; }
+body { background-color: #f9fafb; }

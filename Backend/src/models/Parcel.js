@@ -1,19 +1,20 @@
 import mongoose from 'mongoose';
 
-const parcelSchema = new mongoose.Schema(
+const parcelSlotSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    size: { type: String, required: true },
-    weight: { type: Number, required: true },
+    owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     pickup: { type: String, required: true },
     drop: { type: String, required: true },
-    estimatedCost: { type: Number, required: true },
-    status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' },
-    acceptedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    date: { type: String, required: true },
+    time: { type: String, required: true },
+    capacityKg: { type: Number, required: true, min: 0 },
+    pricePerKg: { type: Number, required: true, min: 0 },
+    notes: String,
+    status: { type: String, enum: ['open', 'closed', 'cancelled'], default: 'open' },
   },
   { timestamps: true }
 );
 
-parcelSchema.index({ user: 1, status: 1 });
+parcelSlotSchema.index({ pickup: 1, drop: 1, date: 1 });
 
-export default mongoose.model('Parcel', parcelSchema);
+export default mongoose.model('Parcel', parcelSlotSchema);

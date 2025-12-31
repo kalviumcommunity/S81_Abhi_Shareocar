@@ -2,12 +2,12 @@ import mongoose from 'mongoose';
 
 const otpSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true },
-    phone: { type: String, required: true },
+    email: { type: String },
+    phone: { type: String },
     code: { type: String, required: true },
+    purpose: { type: String, enum: ['signup', 'login'], required: true },
     expiresAt: { type: Date, required: true },
     attempts: { type: Number, default: 0 },
-    purpose: { type: String, enum: ['signup'], default: 'signup' }
   },
   { timestamps: true }
 );

@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { api } from '../lib/api';
+import { api } from '../lib/api.js';
 
 const AuthContext = createContext(null);
 
@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const { data } = await api.get('/auth/me');
       setUser(data.user);
-    } catch (e) {
+    } catch {
       setUser(null);
     } finally {
       setLoading(false);
@@ -20,9 +20,9 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => { refresh(); }, []);
 
-  const login = (token, user) => {
+  const login = (token, u) => {
     localStorage.setItem('token', token);
-    setUser(user);
+    setUser(u);
   };
   const logout = () => {
     localStorage.removeItem('token');
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, refresh }}>
       {children}
     </AuthContext.Provider>
   );

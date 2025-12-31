@@ -1,13 +1,15 @@
 import { Router } from 'express';
-import { auth } from '../middleware/auth.js';
-import { sendSignupOTP, verifySignupOTP, completeSignup, login, getMe } from '../controllers/authController.js';
+import { signup, login, me, uploadVerificationDocs, verificationStatus } from '../controllers/authController.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const r = Router();
 
-r.post('/signup/send-otp', sendSignupOTP);
-r.post('/signup/verify-otp', verifySignupOTP);
-r.post('/signup/complete', completeSignup);
+r.post('/signup', signup);
 r.post('/login', login);
-r.get('/me', auth, getMe);
+r.get('/me', requireAuth, me);
+
+// Verification
+r.post('/verify/upload-docs', requireAuth, uploadVerificationDocs);
+r.get('/verify/status', requireAuth, verificationStatus);
 
 export default r;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -10,11 +10,10 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Link to="/rides" className="text-brand hover:underline">Find Rides</Link>
           <Link to="/post-ride" className="text-brand hover:underline">Post Ride</Link>
-          <Link to="/parcel" className="text-brand hover:underline">Send Parcel</Link>
+          <Link to="/courier" className="text-brand hover:underline">Courier</Link>
           {user ? (
             <>
               <Link to="/dashboard" className="text-brand hover:underline">Dashboard</Link>
-              {user.role === 'admin' && (<Link to="/admin" className="text-brand hover:underline">Admin</Link>)}
               <button onClick={logout} className="bg-brand text-white px-3 py-1 rounded hover:bg-brand-dark">Logout</button>
             </>
           ) : (
