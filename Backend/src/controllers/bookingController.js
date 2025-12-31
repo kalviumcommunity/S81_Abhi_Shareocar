@@ -1,23 +1,26 @@
-import { z } from 'zod';
 import Ride from '../models/Ride.js';
 import Booking from '../models/Booking.js';
 
 export const bookRide = async (req, res) => {
-  const schema = z.object({ body: z.object({ seats: z.number().int().min(1) }) });
-  const parse = schema.safeParse({ body: req.body });
-  if (!parse.success) return res.status(400).json({ message: 'Invalid data' });
-  const ride = await Ride.findById(req.params.rideId);
-  if (!ride || ride.status !== 'open') return res.status(400).json({ message: 'Ride unavailable' });
-  const seats = parse.data.body.seats;
+  const { id } = req.params;
+  const { seats = 1 } = req.body;
+  const ride = await Ride.findById(id);
+  if (!ride) return res.status(404).json({ message: 'Ride not found' });
+  if (ride.status !== 'open') return res.status(400).json({ message: 'Ride is not open' });
   if (ride.seatsAvailable < seats) return res.status(400).json({ message: 'Not enough seats' });
+
+  const priceTotal = seats * ride.pricePerSeat;
+  const booking = await Booking.create({ user: req.user._id, ride: ride._id, seats, priceTotal });
   ride.seatsAvailable -= seats;
+  if (ride.seatsAvailable === 0) ride.status = 'closed';
   await ride.save();
-  const amount = seats * ride.pricePerSeat;
-  const booking = await Booking.create({ ride: ride._id, user: req.user._id, seats, amount });
-  res.status(201).json({ booking });
+
+  res.status(201).json({ booking, ride });
 };
 
 export const myBookings = async (req, res) => {
-  const bookings = await Booking.find({ user: req.user._id }).populate('ride').sort({ createdAt: -1 });
+  const bookings = await Booking.find({ user: req.user._id })
+    .sort({ createdAt: -1 })
+    .populate({ path: 'ride', populate: { path: 'owner', select: 'name phone' } });
   res.json({ bookings });
 };

@@ -1,24 +1,20 @@
-import { z } from 'zod';
 import SOSAlert from '../models/SOSAlert.js';
+// SMS sending removed for simplified app
 
-export const createSOS = async (req, res) => {
-  const schema = z.object({ body: z.object({ lat: z.number().optional(), lng: z.number().optional(), message: z.string().optional() }) });
-  const parse = schema.safeParse({ body: req.body });
-  if (!parse.success) return res.status(400).json({ message: 'Invalid data' });
-  const { lat, lng, message } = parse.data.body;
-  const alert = await SOSAlert.create({ user: req.user._id, location: { lat, lng }, message });
-  res.status(201).json({ alert });
-};
-
-export const listSOS = async (req, res) => {
-  const alerts = await SOSAlert.find().populate('user', 'name email phone').sort({ createdAt: -1 });
-  res.json({ alerts });
-};
-
-export const resolveSOS = async (req, res) => {
-  const alert = await SOSAlert.findById(req.params.id);
-  if (!alert) return res.status(404).json({ message: 'Alert not found' });
-  alert.resolved = true;
-  await alert.save();
-  res.json({ alert });
+export const triggerSOS = async (req, res) => {
+  const { type, lat, lng, contactPhone } = req.body;
+  if (!['police', 'ambulance', 'contact'].includes(type))
+    return res.status(400).json({ message: 'Invalid SOS type' });
+  const alert = await SOSAlert.create({
+    user: req.user._id,
+    type,
+    location: { lat, lng },
+    sentTo: type === 'contact' ? contactPhone : type,
+  });
+  // For demo: send SMS to contact if provided
+  // Optionally integrate SMS later; currently just logs
+  if (type === 'contact' && contactPhone) {
+    console.log('[SOS CONTACT]', contactPhone, `SOS from ${req.user.name}. Location: ${lat},${lng}`);
+  }
+  res.status(201).json({ message: 'SOS triggered', alert });
 };

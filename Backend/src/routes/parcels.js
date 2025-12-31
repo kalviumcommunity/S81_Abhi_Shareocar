@@ -1,11 +1,13 @@
 import { Router } from 'express';
-import { auth, authorize } from '../middleware/auth.js';
-import { createParcel, myParcels, acceptParcel } from '../controllers/parcelController.js';
+import { createParcelSlot, getParcelSlot, listParcelSlots, bookParcel, myParcelBookings } from '../controllers/parcelController.js';
+import { requireAuth, requireVerifiedDriver } from '../middleware/auth.js';
 
 const r = Router();
 
-r.post('/', auth, createParcel);
-r.get('/me', auth, myParcels);
-r.patch('/:id/accept', auth, authorize(['admin']), acceptParcel);
+r.get('/', listParcelSlots);
+r.get('/:id', getParcelSlot);
+r.post('/', requireAuth, requireVerifiedDriver, createParcelSlot);
+r.post('/:id/book', requireAuth, bookParcel);
+r.get('/me/bookings', requireAuth, myParcelBookings);
 
 export default r;

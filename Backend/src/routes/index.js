@@ -1,16 +1,16 @@
 import { Router } from 'express';
-import authRoutes from './auth.js';
-import rideRoutes from './rides.js';
-import bookingRoutes from './bookings.js';
-import parcelRoutes from './parcels.js';
-import sosRoutes from './sos.js';
+import auth from './auth.js';
+import rides from './rides.js';
+import bookings from './bookings.js';
+import courier from './courier.js';
+import sos from './sos.js';
 
 const router = Router();
 
-router.use('/auth', authRoutes);
-router.use('/rides', rideRoutes);
-router.use('/bookings', bookingRoutes);
-router.use('/parcels', parcelRoutes);
-router.use('/sos', sosRoutes);
+router.use('/auth', auth);
+router.use('/rides', rides);
+router.use('/bookings', bookings);
+router.use('/courier', courier);
+router.use('/sos', sos);
 
 export default router;

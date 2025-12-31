@@ -7,12 +7,29 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/db.js';
 import router from './routes/index.js';
 
-dotenv.config();
+dotenv.config({ override: true });
 
 const app = express();
 
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+const rawOrigins = (process.env.CLIENT_URL || '*').split(',').map((s) => s.trim()).filter(Boolean);
+const allowAll = rawOrigins.includes('*');
+const allowedOrigins = new Set(rawOrigins);
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow non-browser or same-origin requests (no origin header)
+    if (!origin) return callback(null, true);
+    if (allowAll) return callback(null, true);
+    if (allowedOrigins.has(origin)) return callback(null, true);
+    callback(new Error('Not allowed by CORS'));
+  },
+  credentials: true,
+};
+app.use(cors(corsOptions));
+// Explicitly handle preflight for all routes
+// Express v5 uses path-to-regexp v6; use RegExp to match all
+app.options(/.*/, cors(corsOptions));
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan('tiny'));
 

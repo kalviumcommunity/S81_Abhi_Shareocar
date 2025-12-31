@@ -1,43 +1,40 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import SOSButton from './components/SOSButton';
-import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import OTPVerify from './pages/OTPVerify';
-import Home from './pages/Home';
-import RideList from './pages/RideList';
-import RideDetail from './pages/RideDetail';
-import PostRide from './pages/PostRide';
-import ParcelForm from './pages/ParcelForm';
-import Dashboard from './pages/Dashboard';
-import AdminDashboard from './pages/AdminDashboard';
-import ProtectedRoute from './components/ProtectedRoute';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';
+import Footer from './components/Footer.jsx';
+import SOSButton from './components/SOSButton.jsx';
+import Landing from './pages/Landing.jsx';
+import Login from './pages/Login.jsx';
+import Signup from './pages/Signup.jsx';
+// OTP flow removed for smooth signup/login
+import RideList from './pages/RideList.jsx';
+import RideDetail from './pages/RideDetail.jsx';
+import PostRide from './pages/PostRide.jsx';
+import Courier from './pages/Courier.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <div className="flex-1">
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/rides" element={<RideList />} />
-            <Route path="/rides/:id" element={<RideDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/verify-otp" element={<OTPVerify />} />
-            <Route path="/post-ride" element={<ProtectedRoute><PostRide /></ProtectedRoute>} />
-            <Route path="/parcel" element={<ProtectedRoute><ParcelForm /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/admin" element={<AdminDashboard />} />
-          </Routes>
-        </div>
-        <SOSButton />
-        <Footer />
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          { /* OTP flow removed */ }
+          <Route path="/rides" element={<RideList />} />
+          <Route path="/rides/:id" element={<RideDetail />} />
+          <Route path="/post-ride" element={<ProtectedRoute><PostRide /></ProtectedRoute>} />
+          <Route path="/courier" element={<ProtectedRoute><Courier /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
       </div>
-    </BrowserRouter>
+      <SOSButton />
+      <Footer />
+    </div>
   );
 }
