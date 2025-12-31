@@ -4,7 +4,7 @@ const vehicleSchema = new mongoose.Schema(
   {
     model: String,
     plate: String,
-    color: String
+    color: String,
   },
   { _id: false }
 );
@@ -18,8 +18,12 @@ const rideSchema = new mongoose.Schema(
     time: { type: String, required: true },
     seatsAvailable: { type: Number, required: true, min: 0 },
     pricePerSeat: { type: Number, required: true, min: 0 },
+    parcelCapacityKg: { type: Number, default: 0, min: 0 },
+    parcelBookedKg: { type: Number, default: 0, min: 0 },
+    pricePerKg: { type: Number, default: 20, min: 0 },
+    notes: { type: String },
     vehicle: vehicleSchema,
-    status: { type: String, enum: ['open', 'closed', 'cancelled'], default: 'open' }
+    status: { type: String, enum: ['open', 'closed', 'cancelled'], default: 'open' },
   },
   { timestamps: true }
 );

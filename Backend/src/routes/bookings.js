@@ -1,10 +1,9 @@
 import { Router } from 'express';
-import { auth } from '../middleware/auth.js';
-import { bookRide, myBookings } from '../controllers/bookingController.js';
+import { myBookings } from '../controllers/bookingController.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const r = Router();
 
-r.post('/:rideId', auth, bookRide);
-r.get('/me', auth, myBookings);
+r.get('/me', requireAuth, myBookings);
 
 export default r;
