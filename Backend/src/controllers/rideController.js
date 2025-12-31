@@ -35,3 +35,24 @@ export const getRide = async (req, res) => {
   if (!ride) return res.status(404).json({ message: 'Ride not found' });
   res.json({ ride });
 };
+
+export const updateRide = async (req, res) => {
+  const { id } = req.params;
+  const ride = await Ride.findById(id);
+  if (!ride) return res.status(404).json({ message: 'Ride not found' });
+  if (ride.owner.toString() !== req.user._id.toString())
+    return res.status(403).json({ message: 'Only the owner can update this ride' });
+
+  const allowed = [
+    'source', 'destination', 'date', 'time', 'seatsAvailable', 'pricePerSeat',
+    'parcelCapacityKg', 'pricePerKg', 'notes', 'status', 'vehicle'
+  ];
+  for (const key of allowed) {
+    if (key in req.body) {
+      ride[key] = req.body[key];
+    }
+  }
+  await ride.save();
+  const populated = await Ride.findById(id).populate('owner', 'name verification phone');
+  res.json({ ride: populated });
+};

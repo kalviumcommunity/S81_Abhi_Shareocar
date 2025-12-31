@@ -54,7 +54,7 @@ Open http://localhost:5173 (or :5174 if Vite switches)
 - `POST /api/auth/signup`
 - `POST /api/auth/login`
 - `GET /api/auth/me`
-- `GET /api/rides` `POST /api/rides` `GET /api/rides/:id` `PATCH /api/rides/:id/status`
+- `GET /api/rides` `POST /api/rides` `GET /api/rides/:id` `PUT /api/rides/:id` (update)
 - `POST /api/rides/:id/book` `GET /api/bookings/me`
 - `POST /api/courier` `GET /api/courier/me`
 - `POST /api/rides/:id/courier-book` `GET /api/courier/me/bookings`
